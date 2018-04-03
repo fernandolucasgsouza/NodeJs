@@ -1,2 +1,3 @@
  treinaweb/node_modules
  treinaweb/node_modules/*
+ /node_modules

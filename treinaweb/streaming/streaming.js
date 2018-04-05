@@ -21,13 +21,13 @@ http.createServer((request, response)=>{
             let chunksize = (end - start) + 1;
 
             response.writeHead(200, {
-                'Content-Range':`bytes${start}-${end}/${total}`,
+                'Content-Range':`bytes ${start}-${end}/${total}`,
                 'Accept-Ranges':'bytes',
                 'Content-Length':chunksize,
                 'Content-Type':'video/mp4'
             });
 
-            var stream = fs.createReadStream(file,{start: start, end: end})
+            let stream = fs.createReadStream(file,{start: start, end: end})
             .on('open',()=>{
                 stream.pipe(response);
             })

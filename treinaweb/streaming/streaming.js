@@ -12,7 +12,7 @@ http.createServer((request, response)=>{
     }else{
         let file = path.resolve(__dirname, 'movie.mp4');
         let range = request.headers.range;
-        let positions = range.replace('/bytes=/','').split('-');
+        let positions = range.replace(/bytes=/,'').split('-');
         let start = parseInt(positions[0], 10);
 
         fs.stat(file, (err, stats)=>{

@@ -1,0 +1,12 @@
+
+Disparando www.google.com [2800:3f0:4004:809::2004] com 32 bytes de dados:
+Resposta de 2800:3f0:4004:809::2004: tempo=18ms 
+Resposta de 2800:3f0:4004:809::2004: tempo=18ms 
+Resposta de 2800:3f0:4004:809::2004: tempo=17ms 
+Resposta de 2800:3f0:4004:809::2004: tempo=18ms 
+
+Estat¡sticas do Ping para 2800:3f0:4004:809::2004:
+    Pacotes: Enviados = 4, Recebidos = 4, Perdidos = 0 (0% de
+             perda),
+Aproximar um n£mero redondo de vezes em milissegundos:
+    M¡nimo = 17ms, M ximo = 18ms, M‚dia = 17ms

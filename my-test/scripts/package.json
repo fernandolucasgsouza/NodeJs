@@ -1,0 +1,22 @@
+{
+  "name": "promises",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "promise": "^8.1.0"
+  },
+  "devDependencies": {
+    "jasmine": "^3.5.0"
+  },
+  "scripts": {
+    "start":"nodemon",
+    "dev":"nodemon",
+    "create_file":"copy NUL log.txt",
+    "ping_log": "ping www.google.com > log.txt",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

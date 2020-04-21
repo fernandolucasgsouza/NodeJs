@@ -20,7 +20,6 @@ const callback_host_port = (error, res) => {
 fs.readFile(caminho, 'utf-8', callback_host_port)
 
 //listar diretórios
-
 fs.readdir(__dirname,(err, arquivos)=>{
     console.log('conteúdo da pasta... ',arquivos);
     

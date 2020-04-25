@@ -11,17 +11,19 @@ const server = http.createServer((req, resp) => {
     
     fs.readFile(`${__dirname}${path}`, (err, data) => {
         if (err) {
+            resp.writeHead(500, { 'Content-Type': 'text/html' });
+            resp.write('Erro no servidor')
+        }else if(!route){
             resp.writeHead(404, { 'Content-Type': 'text/html' });
             resp.write(data)
-        } else {
+        }
+         else {
             resp.writeHead(200, { 'Content-Type': 'text/html' });
             resp.write(data);
         }
         resp.end();
     })
 });
-
-
 
 
 server.listen(3001)

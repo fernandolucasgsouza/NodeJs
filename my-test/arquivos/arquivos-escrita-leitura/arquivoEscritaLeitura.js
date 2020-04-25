@@ -12,7 +12,8 @@ const callback_read = (err, res) => {
 }
 
 //escreve sempre um novo texto no arquivo
-// fs.writeFile('my_file.txt', 'Fernando Write', callback_write);
+fs.writeFile('my_file.txt', 'Fernando Write', callback_write);
+
 //adiciona escrita no arquivo
 fs.appendFile('my_file.txt', '\nLucas Write Add', callback_write);
 

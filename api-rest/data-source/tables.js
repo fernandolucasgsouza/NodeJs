@@ -3,6 +3,7 @@ class Tables {
     init(connection) {
         this.connection = connection;
         this.criarTabelaAtendimentos();
+        this.criarTabelaPets();
     }
 
     criarTabelaAtendimentos() {
@@ -17,10 +18,26 @@ class Tables {
             'dataCriacao datetime NOT NULL, ' +
             'PRIMARY KEY(id))';
 
-        this.connection.query(sql, (erro) => {
+        this.querySqlExecute(sql, 'Atendimentos');
+    }
+
+    criarTabelaPets() {
+        const sql = 'CREATE TABLE IF NOT EXISTS Pets (' +
+            'id int NOT NULL AUTO_INCREMENT, ' +
+            'nome varchar(50) NOT NULL, ' +
+            'imagem varchar(200), ' +
+            'PRIMARY KEY(id))';
+
+        this.querySqlExecute(sql, 'Pets');
+    }
+
+    querySqlExecute(sqlCommand, tableName) {
+
+        this.connection.query(sqlCommand, (erro) => {
             if (erro) console.log(erro)
-            else console.log('Tabela atendimento criada com sucesso!')
+            else console.log(`Tabela ${tableName} criada com sucesso!`)
         });
+        
     }
 }
 

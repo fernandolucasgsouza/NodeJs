@@ -1,5 +1,6 @@
 const connection = require('../data-source/connection');
 const moment = require('moment');
+const { default: axios } = require('axios');
 
 class AtendimentoRepository {
 
@@ -37,8 +38,9 @@ class AtendimentoRepository {
             if (erro) response.status(400).json(erro);
             else {
                 const message = resultado?.affectedRows != 0 ? 'Criado com sucesso!' : 'Cliente já existe na base.';
-                response.status(201).json({ atendimentoDatado, message })
-               
+                const atendimento = { ...atendimentoDatado, id: resultado.insertId };
+                response.status(201).json({ atendimento, message })
+
             };
         });
 
@@ -48,9 +50,16 @@ class AtendimentoRepository {
 
         const sql = `SELECT * FROM Atendimentos WHERE id = ${id}`;
 
-        connection.query(sql, (erro, resultado) => {
+        connection.query(sql, async (erro, resultado) => {
+            const atendimento = resultado[0];
+            const cpf = atendimento.cliente;
+
             if (erro) response.status(400).json(erro);
-            else response.status(200).json(resultado[0]);
+            else {
+                const { data } = await axios.get(`http://localhost:8082/${cpf}`);
+                atendimento.cliente = data;
+                response.status(200).json(atendimento)
+            };
         });
 
     }

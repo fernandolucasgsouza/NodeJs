@@ -1,18 +1,28 @@
-const atendimentoRepository =  require('../repository/atendimento-repository');
+const atendimentoRepository = require('../repository/atendimento-repository');
+const model = require('../models/atendimento-model');
 
 module.exports = (app) => {
 
     app.get('/atendimentos/:id', (req, res) => {
         const id = parseInt(req.params.id);
-        atendimentoRepository.readById(res, id);
+        console.log(id)
+        model.readById(id)
+            .then((result) => res.status(200).json(result))
+            .catch((erro) =>  res.status(400).json(`${erro}`));
     })
 
     app.get('/atendimentos', (req, res) => {
-        atendimentoRepository.readAll(res);
+        model.readAll()
+            .then((result) => res.json(result))
+            .catch((erro) => res.status(400).json(erro)
+            );
     })
-    
+
+
     app.post('/atendimentos', (req, res) => {
-        atendimentoRepository.create(req.body, res)
+        model.create(req.body)
+            .then((result) => res.status(201).json(result))
+            .catch((erros) => res.status(400).json(erros));
     })
 
     app.patch('/atendimentos/:id', (req, res) => {
@@ -25,5 +35,5 @@ module.exports = (app) => {
         atendimentoRepository.delete(id, res);
     })
 
-    
+
 }

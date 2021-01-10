@@ -1,78 +1,23 @@
-const connection = require('../data-source/connection');
 const moment = require('moment');
-const { default: axios } = require('axios');
+
+const connection = require('../data-source/connection');
+const query = require('../data-source/queries');
 
 class AtendimentoRepository {
 
-    create(atendimento, response) {
-
-        const dataCriacao = moment().format('YYYY-MM-DD HH:mm:ss');
-        const data = moment(atendimento.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:mm:ss');
-
-        const dataAgendamentoEhValida = moment(data).isSameOrAfter(dataCriacao);
-        const nomeClienteEhValido = atendimento.cliente.length >= 5;
-        const validacoes = [
-            {
-                nome: 'data',
-                ehValido: dataAgendamentoEhValida,
-                mensagem: 'Data de agendamento deve ser maior que data atual'
-            },
-            {
-                nome: 'nome',
-                ehValido: nomeClienteEhValido,
-                mensagem: 'Nome do cliente deve ter pelo menos 5 caracteres'
-            }
-        ]
-
-        const erros = validacoes.filter(campo => !campo.ehValido);
-
-        if (erros.length) {
-            response.status(400).json(erros);
-            return;
-        }
-
-        const atendimentoDatado = { ...atendimento, dataCriacao, data }
+    create(atendimento) {
         const sql = 'INSERT INTO Atendimentos SET ?';
-
-        connection.query(sql, atendimentoDatado, (erro, resultado) => {
-            if (erro) response.status(400).json(erro);
-            else {
-                const message = resultado?.affectedRows != 0 ? 'Criado com sucesso!' : 'Cliente já existe na base.';
-                const atendimento = { ...atendimentoDatado, id: resultado.insertId };
-                response.status(201).json({ atendimento, message })
-
-            };
-        });
-
+        return query(sql, atendimento);
     }
-
-    readById(response, id) {
-
+   
+    readById(id){
         const sql = `SELECT * FROM Atendimentos WHERE id = ${id}`;
-
-        connection.query(sql, async (erro, resultado) => {
-            const atendimento = resultado[0];
-            const cpf = atendimento.cliente;
-
-            if (erro) response.status(400).json(erro);
-            else {
-                const { data } = await axios.get(`http://localhost:8082/${cpf}`);
-                atendimento.cliente = data;
-                response.status(200).json(atendimento)
-            };
-        });
-
+        return query(sql, id);
     }
 
-    readAll(response) {
-
+    readAll(){
         const sql = 'SELECT * FROM Atendimentos';
-
-        connection.query(sql, (erro, resultados) => {
-            if (erro) response.status(400).json(erro);
-            else response.status(200).json(resultados);
-        });
-
+        return query(sql);
     }
 
     update(id, values, response) {
@@ -113,6 +58,8 @@ class AtendimentoRepository {
         });
 
     }
+
 }
+
 
 module.exports = new AtendimentoRepository;

@@ -14,8 +14,7 @@ module.exports = (app) => {
     app.get('/atendimentos', (req, res) => {
         model.readAll()
             .then((result) => res.json(result))
-            .catch((erro) => res.status(400).json(erro)
-            );
+            .catch((erro) => res.status(400).json(erro));
     })
 
 

@@ -1,2 +1,8 @@
-treinaweb/node_modules/*
 node_modules
+/node_modules
+node_modules/*
+/node_modules/*
+*/node_module/*
+/**/node_modules/*
+treinaweb/node_modules/*
+node-basic/node_modules/*

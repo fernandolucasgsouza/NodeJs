@@ -27,6 +27,6 @@
   },
   "devDependencies": {
     "faker": "^5.1.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.20"
   }
 }
